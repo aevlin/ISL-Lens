@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://isl-lens.local/schemas/dataset_manifest.schema.json",
+  "title": "ISL-Lens Dataset Manifest",
+  "description": "Source-of-truth schema for every acquired ISL-Lens media sample.",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "created_at",
+    "dataset",
+    "samples"
+  ],
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dataset": {
+      "type": "object",
+      "required": [
+        "dataset_id",
+        "name",
+        "version",
+        "source_url",
+        "license",
+        "task_type"
+      ],
+      "properties": {
+        "dataset_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "license_url": {
+          "type": "string"
+        },
+        "task_type": {
+          "type": "string",
+          "enum": [
+            "isolated_sign",
+            "continuous_sign",
+            "fingerspelling",
+            "sentence_translation",
+            "unknown_negative",
+            "mixed"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "vocabulary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "vocabulary_id",
+          "normalized_gloss",
+          "display_label",
+          "supported"
+        ],
+        "properties": {
+          "vocabulary_id": {
+            "type": "string"
+          },
+          "normalized_gloss": {
+            "type": "string"
+          },
+          "display_label": {
+            "type": "string"
+          },
+          "class_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "supported": {
+            "type": "boolean"
+          },
+          "source_labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "known_similar_glosses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sample_id",
+          "dataset_id",
+          "relative_path",
+          "media_type",
+          "label_raw",
+          "label_normalized",
+          "split",
+          "license",
+          "review_status"
+        ],
+        "properties": {
+          "sample_id": {
+            "type": "string"
+          },
+          "dataset_id": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          },
+          "relative_path": {
+            "type": "string"
+          },
+          "media_type": {
+            "type": "string",
+            "enum": [
+              "video",
+              "image",
+              "landmarks",
+              "metadata"
+            ]
+          },
+          "file_size_bytes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "perceptual_hash": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "label_raw": {
+            "type": "string"
+          },
+          "label_normalized": {
+            "type": "string"
+          },
+          "vocabulary_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signer_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signer_metadata": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "recording_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_video_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fps": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "exclusiveMinimum": 0
+          },
+          "duration_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "frame_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "width": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "height": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "split": {
+            "type": "string",
+            "enum": [
+              "train",
+              "validation",
+              "test",
+              "unknown_validation",
+              "unknown_test",
+              "unassigned",
+              "excluded"
+            ]
+          },
+          "split_strategy": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "official",
+              "stratified_random",
+              "signer_independent",
+              "source_video_independent",
+              "manual_holdout",
+              null
+            ]
+          },
+          "license": {
+            "type": "string"
+          },
+          "annotation_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "isolated_gloss",
+              "sentence",
+              "gloss_sequence",
+              "character_boundaries",
+              "unknown_negative",
+              null
+            ]
+          },
+          "quality_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "usable",
+              "needs_review",
+              "corrupt",
+              "tracking_risk",
+              "excluded",
+              null
+            ]
+          },
+          "duplicate_status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "unique",
+              "duplicate",
+              "near_duplicate",
+              "unknown",
+              null
+            ]
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "needs_manual_review",
+              "rejected"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

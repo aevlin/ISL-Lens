@@ -1,0 +1,200 @@
+{
+  "audit_date": "2026-09-21",
+  "status": "initial_public_source_audit_no_downloads",
+  "primary_recommendation": "include",
+  "datasets": [
+    {
+      "dataset_id": "include",
+      "name": "INCLUDE: Indian Lexicon Sign Language Dataset",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://github.com/AI4Bharat/sign-language.ai4bharat.org/blob/master/docs/INCLUDE.md",
+        "https://doi.org/10.1145/3394171.3413528"
+      ],
+      "reported_classes": 263,
+      "reported_samples": 4287,
+      "reported_signers": null,
+      "reported_split_support": "reported benchmark splits; signer-independent support must be verified locally",
+      "reported_license": "verify from distribution before download/use",
+      "strengths": [
+        "directly aligned with isolated Indian Sign Language recognition",
+        "sufficient vocabulary scale for first serious benchmark",
+        "INCLUDE-50 supports faster early experiments"
+      ],
+      "risks": [
+        "license must be verified from actual distribution",
+        "signer metadata may be insufficient for signer-independent evaluation",
+        "official split may be random rather than signer-independent"
+      ],
+      "initial_use": "primary candidate after license and metadata verification",
+      "adoption_status": "candidate"
+    },
+    {
+      "dataset_id": "isl_isolated_40words",
+      "name": "ISL Isolated Word Dataset 40 Words",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://huggingface.co/datasets/vidit031/isl-isolated-40words"
+      ],
+      "reported_classes": 40,
+      "reported_samples": 642,
+      "reported_signers": "metadata field reported",
+      "reported_split_support": "metadata field reported; must verify semantics",
+      "reported_license": "multi-source aggregate",
+      "strengths": [
+        "small enough for pipeline validation",
+        "metadata reports provenance, signer, hashes, duration, quality, duplicate status"
+      ],
+      "risks": [
+        "not a single unified license",
+        "derived labels and aliases require manual review",
+        "too small for final 100+ sign objective"
+      ],
+      "initial_use": "pipeline sanity-check only after license review",
+      "adoption_status": "candidate"
+    },
+    {
+      "dataset_id": "islrtc_dictionary",
+      "name": "Indian Sign Language Dictionary till January 2024 / Data.gov and re-encodes",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://ap.data.gov.in/resource/indian-sign-language-dictionary-till-january-2024",
+        "https://huggingface.co/datasets/silentone0725/Indian_Sign_Language_Data.gov_Rencoded"
+      ],
+      "reported_classes": null,
+      "reported_samples": null,
+      "reported_signers": null,
+      "reported_split_support": "unknown",
+      "reported_license": "reported MIT on one third-party re-encode; original source terms must be checked",
+      "strengths": [
+        "large vocabulary expansion potential",
+        "government-origin dictionary source"
+      ],
+      "risks": [
+        "very large storage requirement",
+        "metadata completeness uncertain",
+        "signer-independent evaluation may not be possible",
+        "third-party re-encode terms may not fully define original data rights"
+      ],
+      "initial_use": "future vocabulary expansion candidate",
+      "adoption_status": "deferred"
+    },
+    {
+      "dataset_id": "cislr",
+      "name": "CISLR: Corpus for Indian Sign Language Recognition",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://aclanthology.org/2022.emnlp-main.707/"
+      ],
+      "reported_classes": 4700,
+      "reported_samples": null,
+      "reported_signers": null,
+      "reported_split_support": "must verify",
+      "reported_license": "must verify",
+      "strengths": [
+        "large word-level ISL vocabulary",
+        "research paper and baseline context available"
+      ],
+      "risks": [
+        "access path and license need verification",
+        "may not fit initial controlled benchmark phase"
+      ],
+      "initial_use": "investigate after INCLUDE plan",
+      "adoption_status": "candidate_unverified"
+    },
+    {
+      "dataset_id": "isl_csltr",
+      "name": "ISL-CSLTR Indian Sign Language Dataset",
+      "task_type": "sentence_translation",
+      "source_urls": [
+        "https://www.kaggle.com/datasets/drblack00/isl-csltr-indian-sign-language-dataset"
+      ],
+      "reported_classes": 100,
+      "reported_samples": 700,
+      "reported_signers": 7,
+      "reported_split_support": "must verify",
+      "reported_license": "CC BY-SA 4.0 reported on Kaggle page",
+      "strengths": [
+        "sentence-level annotations",
+        "relevant for future translation layer"
+      ],
+      "risks": [
+        "not primary isolated word recognition data",
+        "small sentence count for robust language generation"
+      ],
+      "initial_use": "Gate 8 sentence-generation investigation",
+      "adoption_status": "deferred"
+    },
+    {
+      "dataset_id": "isl_fingerspelling",
+      "name": "ISL Fingerspelling Dataset",
+      "task_type": "fingerspelling",
+      "source_urls": [
+        "https://kirandevraj.github.io/ISL-Fingerspelling/",
+        "https://huggingface.co/datasets/kirandevraj/ISL-Fingerspelling"
+      ],
+      "reported_classes": null,
+      "reported_samples": 1308,
+      "reported_signers": "split metadata reported",
+      "reported_split_support": "standard and signer-independent split files reported",
+      "reported_license": "CC BY-NC 4.0 context reported on project page; verify actual dataset card terms",
+      "strengths": [
+        "temporal character-level annotations",
+        "signer-independent split support reported"
+      ],
+      "risks": [
+        "fingerspelling differs from isolated word-sign recognition",
+        "non-commercial constraints may apply"
+      ],
+      "initial_use": "future fingerspelling subsystem only",
+      "adoption_status": "deferred"
+    },
+    {
+      "dataset_id": "iiita_robita",
+      "name": "IIITA-ROBITA Indian Sign Language Gesture Database",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://robita.iiita.ac.in/dataset.php"
+      ],
+      "reported_classes": 23,
+      "reported_samples": null,
+      "reported_signers": null,
+      "reported_split_support": "unknown",
+      "reported_license": "release agreement required",
+      "strengths": [
+        "historical controlled ISL gesture benchmark"
+      ],
+      "risks": [
+        "too small for project objective",
+        "access requires institutional agreement",
+        "controlled background limits real-world relevance"
+      ],
+      "initial_use": "optional small benchmark only",
+      "adoption_status": "not_primary"
+    },
+    {
+      "dataset_id": "kaggle_prasad_shet_isl_video",
+      "name": "Indian Sign Language Video Dataset",
+      "task_type": "isolated_sign",
+      "source_urls": [
+        "https://www.kaggle.com/datasets/prasadshet/indian-sign-language-video-dataset"
+      ],
+      "reported_classes": 60,
+      "reported_samples": 3600,
+      "reported_signers": null,
+      "reported_split_support": "must verify",
+      "reported_license": "MIT reported on Kaggle page",
+      "strengths": [
+        "reported 60 videos per sign",
+        "useful intermediate vocabulary scale"
+      ],
+      "risks": [
+        "source/provenance from YouTube needs rights review",
+        "signer diversity unclear",
+        "still signs may bias training if mixed casually"
+      ],
+      "initial_use": "possible augmentation after provenance review",
+      "adoption_status": "candidate_unverified"
+    }
+  ]
+}

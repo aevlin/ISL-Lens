@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISL-Lens — Real-time Indian Sign Language Console</title>
+    <link rel="icon" id="appFavicon" type="image/png" href="/static/images/isl_lens_logo_white.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+  </head>
+  <body>
+    <!-- Minimalist Monochrome Intro Splash Screen -->
+    <div class="app-splash" id="appSplash" role="dialog" aria-label="Welcome Splash Screen">
+      <div class="splash-content">
+        <img src="/static/images/isl_lens_logo_white.png" class="splash-brand-logo" alt="ISL Lens Logo">
+        <h1 class="splash-title">Indian Sign Language</h1>
+        <p class="splash-subtitle">Real-Time Gesture & Sentence Interpreter</p>
+        <div class="splash-loader-bar">
+          <div class="splash-loader-fill"></div>
+        </div>
+      </div>
+      <button class="splash-skip-btn" id="splashSkipBtn" onclick="document.getElementById('appSplash').classList.add('hidden')" aria-label="Enter Console">Enter Console &rarr;</button>
+    </div>
+
+    <div class="app-container">
+      <!-- Top Navigation Header -->
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-logo-wrapper">
+            <img src="/static/images/isl_lens_logo_white.png" id="brandLogoWhite" class="brand-logo" alt="ISL Lens White Logo">
+            <img src="/static/images/isl_lens_logo_dark.png" id="brandLogoDark" class="brand-logo hidden" alt="ISL Lens Dark Logo">
+          </div>
+          <div>
+            <span class="brand-title">ISL-Lens</span>
+            <span class="brand-subtitle">Real-Time Sign Language Translator</span>
+          </div>
+        </div>
+
+        <div class="header-status">
+          <div class="status-pill" id="modelStatusPill">
+            <span class="pulse-dot green"></span>
+            <span id="modelStatusText">Loading Model...</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="themeToggle" class="icon-btn-secondary" title="Toggle Light / Dark Mode" aria-label="Toggle theme">
+            <svg id="themeIconSun" class="theme-icon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg id="themeIconMoon" class="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span id="themeLabelText">Dark Mode</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Google Meet Style Grid -->
+      <main class="meet-grid">
+        <!-- Main Camera Focus Section -->
+        <section class="camera-stage" aria-label="Video camera preview feed">
+          <div class="video-container" id="videoContainer">
+            <video id="video" playsinline muted></video>
+            <canvas id="overlay"></canvas>
+
+            <!-- Floating Top Overlay Badges (Meet Style) -->
+            <div class="video-overlay-top">
+              <div class="live-sign-badge" id="signBadge">
+                <span class="badge-tag" id="decisionState">STANDBY</span>
+                <span class="sign-text" id="currentSign">UNKNOWN</span>
+                <span class="confidence-val" id="confidenceVal">0%</span>
+              </div>
+
+              <div class="gesture-observation-bar" id="gestureObsBar">
+                <div class="obs-progress-fill" id="obsProgressFill"></div>
+                <span class="obs-label" id="obsLabel">Observing Sign Gesture...</span>
+              </div>
+
+              <div class="tracking-badge" id="cameraBadge">
+                <span class="pulse-dot yellow" id="trackingDot"></span>
+                <span id="trackingState">Camera Off</span>
+                <span class="hand-chip" id="handChip">0 Hands</span>
+              </div>
+
+              <div class="body-region-badge" id="bodyRegionBadge">
+                <svg class="region-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+                <span id="bodyRegionText">NEUTRAL SPACE</span>
+              </div>
+            </div>
+
+            <!-- Recognition Reason Footer Overlay -->
+            <div class="video-overlay-bottom">
+              <div class="reason-caption" id="recognitionReason">Click "Start Camera" to initiate live hand landmark tracking.</div>
+            </div>
+
+            <!-- Google Meet Control Bar (Bottom Floating Dock) -->
+            <div class="meet-controls-dock">
+              <button id="cameraButton" class="meet-btn primary-meet-btn" title="Toggle Camera">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span id="cameraBtnText">Start Camera</span>
+              </button>
+
+              <button id="speechButton" class="meet-btn" title="Toggle Speech-to-Text">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                <span id="speechBtnText">Listen</span>
+              </button>
+
+              <button id="ttsButton" class="meet-btn" title="Speak Last Recognized Sign">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                <span>Speak</span>
+              </button>
+
+              <button id="addUnknownButton" class="meet-btn" title="Repeat or Add Last Recognized Sign">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+                <span>Repeat Sign</span>
+              </button>
+
+              <button id="correctSignBtn" class="meet-btn correction-btn" title="Report Wrong Sign & Train Model">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Wrong Sign? Correct it</span>
+              </button>
+
+              <button id="exportButton" class="meet-btn" title="Export Conversation Log">
+                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Side Panel / Control Drawer -->
+        <aside class="side-workspace">
+          <!-- ISL Sentence Recording & Translation Panel -->
+          <div class="panel sentence-recording-panel">
+            <div class="panel-header">
+              <h3>Sentence Generation</h3>
+              <span class="badge-pill" id="sentenceModeBadge">Ready</span>
+            </div>
+            <p class="sentence-desc">Tap <strong>Start Recording</strong>, perform your sign language sequence, then tap <strong>Stop & Translate</strong> to generate full English sentences.</p>
+            
+            <div class="sentence-recording-actions">
+              <button id="startSentenceBtn" class="meet-btn primary-meet-btn w-full">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+                <span id="startSentenceBtnText">Start Recording Sentence</span>
+              </button>
+              <button id="stopSentenceBtn" class="meet-btn stop-state w-full hidden">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>
+                <span>Stop & Translate Sentence</span>
+              </button>
+            </div>
+
+            <!-- Captured Sign Gloss Chips -->
+            <div class="sentence-chips-container" id="sentenceChips">
+              <span class="chips-placeholder">No signs recorded yet in this sentence.</span>
+            </div>
+
+            <!-- Translated Output Display Box -->
+            <div class="sentence-box">
+              <span class="mini-label">Translated English Sentence:</span>
+              <p id="sentenceOutput" class="sentence-result-text">Your translated sentence will appear here after recording.</p>
+            </div>
+          </div>
+
+          <!-- Transcript & Speech-to-Text Log -->
+          <div class="panel transcript-panel">
+            <div class="panel-header">
+              <h3>Conversation Transcript</h3>
+              <div class="panel-btn-group">
+                <button id="downloadTranscriptBtn" class="action-sm-btn highlight-btn" title="Download Conversation Transcript File">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download</span>
+                </button>
+                <button id="clearButton" class="text-btn">Clear</button>
+              </div>
+            </div>
+            <div id="transcript" class="transcript-list" aria-live="polite"></div>
+            <div class="speech-box-footer">
+              <span class="mini-label">Speech Input:</span>
+              <span id="speechText">No speech captured yet.</span>
+            </div>
+          </div>
+
+          <!-- Practice Target Mode Card with Interactive Target Selection & AI Scoring -->
+          <div class="panel practice-panel">
+            <div class="panel-header">
+              <h3>Practice Target & AI Scoring</h3>
+              <button id="openPracticeSelectorBtn" class="action-sm-btn highlight-btn" title="Choose Target Sign or Conversation Sentence">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <span>Select Target 🎯</span>
+              </button>
+            </div>
+            <div class="practice-content">
+              <div class="target-display-row">
+                <div class="target-title-wrap">
+                  <span class="target-type-badge" id="practiceTargetType">SINGLE WORD</span>
+                  <div class="practice-target-word" id="practiceTarget">HELLO</div>
+                </div>
+                <button id="watchReferenceClipBtn" class="action-sm-btn watch-clip-btn" title="Watch Official ISL Training Video Clip for this Sign">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Watch Video Clip</span>
+                </button>
+              </div>
+              
+              <!-- AI Accuracy Score Meter -->
+              <div class="accuracy-score-container" id="accuracyContainer">
+                <div class="accuracy-pill-badge" id="accuracyPill">
+                  <span class="accuracy-dot" id="accuracyDot"></span>
+                  <span id="accuracyScoreValue">0.0% AI Accuracy Score</span>
+                </div>
+                <div class="accuracy-bar-track">
+                  <div class="accuracy-bar-fill" id="accuracyBarFill"></div>
+                </div>
+              </div>
+
+              <p class="practice-feedback" id="practiceFeedback">Prepare your hands in the camera view to practice this sign.</p>
+            </div>
+          </div>
+
+          <!-- Supported Vocabulary Grid -->
+          <div class="panel vocabulary-panel">
+            <div class="panel-header">
+              <h3>Vocabulary (40 Glosses)</h3>
+              <span id="vocabStatus" class="badge-pill">40 Trained</span>
+            </div>
+            <div id="vocabularyList" class="vocabulary-grid"></div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Interactive ISL Practice Target & Sentence Selector Modal -->
+    <div class="tutor-modal-overlay hidden" id="practiceSelectModal">
+      <div class="tutor-modal-card selector-card">
+        <div class="tutor-header">
+          <div class="tutor-title-group">
+            <span class="tutor-badge">ISL PRACTICE TARGET & AI DICTIONARY</span>
+            <h2>Select Target Sign or Sentence</h2>
+          </div>
+          <button id="closePracticeSelectBtn" class="close-modal-btn">&times;</button>
+        </div>
+
+        <div class="tutor-body selector-body">
+          <!-- Selection Mode Tabs -->
+          <div class="selector-tab-bar">
+            <button class="selector-tab-btn active" id="tabSentencesBtn">
+              <span>Basic Conversation Sentences (20)</span>
+            </button>
+            <button class="selector-tab-btn" id="tabWordsBtn">
+              <span>Single ISL Words (40 Glosses)</span>
+            </button>
+          </div>
+
+          <!-- Sentences Tab View -->
+          <div id="practiceSentencesView" class="selector-view-content">
+            <p class="selector-intro">Choose a basic necessity or conversational ISL sentence to practice continuous sign translation:</p>
+            <div class="selector-list" id="sentencesCategoryList"></div>
+          </div>
+
+          <!-- Single Words Tab View -->
+          <div id="practiceWordsView" class="selector-view-content hidden">
+            <p class="selector-intro">Select any of the 40 authentic trained ISL glosses to practice individual sign recognition & AI accuracy:</p>
+            <div class="selector-list" id="wordsCategoryList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive ISL Sign Tutor & Dictionary Modal with Training Video Player -->
+    <div class="tutor-modal-overlay hidden" id="tutorModal">
+      <div class="tutor-modal-card">
+        <div class="tutor-header">
+          <div class="tutor-title-group">
+            <span class="tutor-badge">ISL TUTOR & DATASET VIDEO DEMO</span>
+            <h2 id="tutorSignTitle">WATER</h2>
+          </div>
+          <button id="closeTutorBtn" class="close-modal-btn">&times;</button>
+        </div>
+
+        <div class="tutor-body">
+          <!-- Training Dataset Reference Video Player -->
+          <div class="tutor-video-container">
+            <div class="video-label">Training Dataset Reference Clip:</div>
+            <video id="tutorVideoPlayer" controls autoplay loop muted playsinline></video>
+          </div>
+
+          <!-- Body Placement & Execution Info -->
+          <div class="tutor-info-grid">
+            <div class="tutor-info-card">
+              <span class="info-label">BODY TARGET AREA</span>
+              <strong id="tutorBodyTarget">FACE / CHIN REGION</strong>
+            </div>
+            <div class="tutor-info-card">
+              <span class="info-label">HAND SHAPE</span>
+              <strong id="tutorHandShape">W-Shape / 3 Fingers Extended</strong>
+            </div>
+            <div class="tutor-info-card">
+              <span class="info-label">MOVEMENT</span>
+              <strong id="tutorMovement">Double Tap near Chin</strong>
+            </div>
+          </div>
+
+          <!-- Execution Instructions -->
+          <div class="tutor-steps-box">
+            <h3>How to Perform this Sign:</h3>
+            <ol id="tutorStepsList">
+              <li>Raise your dominant hand to your face region.</li>
+              <li>Form a 'W' shape using your index, middle, and ring fingers.</li>
+              <li>Tap the side of your index finger against your chin twice.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tutor-footer">
+          <button id="practiceThisSignBtn" class="meet-btn primary-meet-btn">
+            <span>Practice This Sign Live &rarr;</span>
+          </button>
+        </div>
+      </div>
+    <!-- Interactive Sign Correction & Live 4-Second Video Retraining Modal -->
+    <div class="tutor-modal-overlay hidden" id="correctionModal">
+      <div class="tutor-modal-card correction-card">
+        <div class="tutor-header">
+          <div class="tutor-title-group">
+            <span class="tutor-badge correction-badge">LIVE VIDEO MODEL RETRAINING</span>
+            <h2>Record Video & Train Model</h2>
+          </div>
+          <button id="closeCorrectionBtn" class="close-modal-btn">&times;</button>
+        </div>
+
+        <div class="tutor-body">
+          <p class="correction-desc">Model predicted: <strong id="correctionModelThought">UNKNOWN</strong>. Select or type the sign you performed, then click <strong>Record 4-Second Video Clip</strong>. Perform your sign for 4 seconds so the AI extracts your video landmarks to train the model for current and future sessions:</p>
+
+          <div class="correction-select-group">
+            <label for="correctGlossSelect">Target Sign (Select or Type Custom Name):</label>
+            <select id="correctGlossSelect" class="correction-dropdown"></select>
+            <input type="text" id="customGlossInput" class="correction-input" placeholder="Or type custom sign name (e.g. NAMASTE)...">
+          </div>
+
+          <!-- Video Clip Recording Progress & Countdown Box -->
+          <div class="rep-recording-status hidden" id="repStatusBox">
+            <div class="video-countdown-badge">
+              <span class="video-rec-dot"></span>
+              <span id="videoRecTimerText">RECORDING VIDEO: 4.0s</span>
+            </div>
+            <p class="rep-instruction" id="repInstructionText">Perform your sign in camera view now!</p>
+            <div class="rep-progress-bar">
+              <div class="rep-progress-fill" id="repProgressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tutor-footer">
+          <button id="submitCorrectionBtn" class="meet-btn primary-meet-btn w-full">
+            <span id="submitCorrectionBtnText">Record 4-Second Video Clip & Train AI &rarr;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MediaPipe & PDF Generator Bundles -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>

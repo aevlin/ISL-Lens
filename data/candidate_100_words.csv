@@ -1,0 +1,41 @@
+gloss,display_name,category,islrtc_approved,handshape,body_target,movement_description
+BROTHER,Brother,Family,True,L-Shape,HEAD / TEMPLE REGION & CHEST,Touch forehead with thumb then hook index fingers
+COME,Come,Action,True,Open Palms Up,NEUTRAL SPACE (IN FRONT),Extend arm outward then curve fingers inward toward chest
+DRINK,Drink,Action,True,C-Shape Cup,MOUTH REGION,Tilt thumb toward mouth as if drinking from a cup
+EAT,Eat,Action,True,Pinch Shape,MOUTH REGION,Tap fingertips gently against lips twice
+FATHER,Father,Family,True,Open 5-Hand,FOREHEAD REGION,Tap tip of thumb against center of forehead twice
+FOOD,Food,Object,True,Pinch Shape,MOUTH REGION,Repeatedly move pinch hand up and down near chin/mouth area
+FRIEND,Friend,People,True,Interlocked Index,CHEST REGION,Hook dominant index finger over non-dominant index finger
+GO,Go,Action,True,Index Pointing,NEUTRAL SPACE (OUTWARD),Sweep index finger forward away from body in an arc
+GOODBYE,Goodbye,Greeting,True,Flat Open Palm,SHOULDER / HEAD HEIGHT,Flex fingers or move wrist side-to-side in a waving gesture
+HE,He,Pronoun,True,Index Pointing,NEUTRAL SPACE (RIGHT SIDE),Point directly towards right side to indicate third person male
+HELLO,Hello,Greeting,True,Flat Open Palm,HEAD / TEMPLE REGION,Touch fingertips to temple and move hand outward in a salute
+HELP,Help,Action,True,Thumbs-Up on Palm,CHEST REGION,Place fist with thumb up on flat palm and lift both hands upward
+HOME,Home,Place,True,Pinch Shape,CHEEK & EAR REGION,Touch fingertips to corner of cheek then move backward to ear
+HOSPITAL,Hospital,Place,True,H-Shape,UPPER ARM / SHOULDER,Draw a vertical line down non-dominant upper arm then horizontal line
+MARKET,Market,Place,True,Flat Palms Up,CHEST / NEUTRAL SPACE,Move both hands up and down alternately as if weighing items
+ME,Me,Pronoun,True,Index Pointing,CHEST REGION,Point dominant index finger directly towards your chest center
+MOTHER,Mother,Family,True,Open 5-Hand,CHIN REGION,Tap tip of thumb against center of chin twice
+NO,No,Response,True,Open Palm Side-Swipe,NEUTRAL SPACE,Sweep open palm horizontally from left to right across torso
+OKAY,Okay,Response,True,O-K Circle,NEUTRAL SPACE,Form circle with thumb and index and push hand forward twice
+PLEASE,Please,Polite,True,Flat Open Palm,CHEST REGION,Place open palm against center of chest and rotate in clockwise circle
+READ,Read,Action,True,V-Hand (2-Fingers),OPEN PALM (NON-DOMINANT),Move index and middle finger left-to-right across open palm
+SCHOOL,School,Place,True,Flat Open Palms,CHEST LEVEL,Clap flat open palms together horizontally twice
+SHE,She,Pronoun,True,Index Pointing,NEUTRAL SPACE (LEFT SIDE),Point directly towards left side to indicate third person female
+SISTER,Sister,Family,True,Thumb Chin Tap,CHIN REGION & CHEST,Touch chin with thumb then hook index fingers
+SIT,Sit,Action,True,H-Hand (2-Fingers),NEUTRAL SPACE,Rest index and middle fingers over non-dominant extended fingers
+SORRY,Sorry,Polite,True,Fist Shape,CHEST REGION,Place fist on center of chest and rub in circular motion
+STAND,Stand,Action,True,V-Hand inverted,OPEN PALM (NON-DOMINANT),Place tips of index and middle finger standing upright on open palm
+STOP,Stop,Action,True,Flat Open Hand,OPEN PALM (NON-DOMINANT),Chop edge of dominant hand vertically onto open palm
+STUDENT,Student,People,True,Open Book & Temple,NEUTRAL SPACE & TEMPLE,Open hands like a book then touch fingertips to forehead
+TEA,Tea,Object,True,Fist with Thumb-Index,MOUTH REGION,Hold imaginary teacup and stir with small circular wrist motion
+TEACHER,Teacher,People,True,O-Pinch at Temple,FOREHEAD / TEMPLE,Touch pinch at temple and sweep forward away from head twice
+THANK YOU,Thank You,Polite,True,Flat Open Palm,CHIN TO NEUTRAL SPACE,Touch fingertips to chin then extend open palm forward toward person
+TODAY,Today,Time,True,Open Palms Down,NEUTRAL SPACE,Hold open hands palm-down in front of torso and pulse downward twice
+WATER,Water,Object,True,W-Hand (3-Fingers),CHIN REGION,"Tap tips of index, middle, and ring fingers against chin twice"
+WHAT,What,Question,True,Open Palms Up,NEUTRAL SPACE,Hold both open hands palm-up and shrug wrists side-to-side
+WHEN,When,Question,True,Index Pointing,NEUTRAL SPACE,Circle index finger around opposite index finger then touch tip
+WHERE,Where,Question,True,Index Pointing,NEUTRAL SPACE,Shake extended index finger side-to-side repeatedly
+WRITE,Write,Action,True,Index-Thumb Pen,OPEN PALM (NON-DOMINANT),Move index and thumb across open palm as if writing with a pen
+YES,Yes,Response,True,Fist Shape,NEUTRAL SPACE,Nod fist up and down from wrist like a nodding head
+YOU,You,Pronoun,True,Index Pointing,NEUTRAL SPACE (FORWARD),Point index finger directly forward toward person opposite you

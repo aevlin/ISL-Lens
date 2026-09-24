@@ -1,0 +1,327 @@
+{
+  "version": "v0.6.0-restored-92pc-40words",
+  "status": "restored_92pc_accuracy",
+  "description": "40 Authentic Indian Sign Language (ISL) Glosses with 92.06% Accurate Real Video Model",
+  "items": [
+    {
+      "id": "brother",
+      "display": "Brother",
+      "gloss": "BROTHER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "come",
+      "display": "Come",
+      "gloss": "COME",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "drink",
+      "display": "Drink",
+      "gloss": "DRINK",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "eat",
+      "display": "Eat",
+      "gloss": "EAT",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "father",
+      "display": "Father",
+      "gloss": "FATHER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "food",
+      "display": "Food",
+      "gloss": "FOOD",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "friend",
+      "display": "Friend",
+      "gloss": "FRIEND",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "go",
+      "display": "Go",
+      "gloss": "GO",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "goodbye",
+      "display": "Goodbye",
+      "gloss": "GOODBYE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "he",
+      "display": "He",
+      "gloss": "HE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "hello",
+      "display": "Hello",
+      "gloss": "HELLO",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "help",
+      "display": "Help",
+      "gloss": "HELP",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "home",
+      "display": "Home",
+      "gloss": "HOME",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "hospital",
+      "display": "Hospital",
+      "gloss": "HOSPITAL",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "market",
+      "display": "Market",
+      "gloss": "MARKET",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "me",
+      "display": "Me",
+      "gloss": "ME",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "mother",
+      "display": "Mother",
+      "gloss": "MOTHER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "no",
+      "display": "No",
+      "gloss": "NO",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "okay",
+      "display": "Okay",
+      "gloss": "OKAY",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "please",
+      "display": "Please",
+      "gloss": "PLEASE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "read",
+      "display": "Read",
+      "gloss": "READ",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "school",
+      "display": "School",
+      "gloss": "SCHOOL",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "she",
+      "display": "She",
+      "gloss": "SHE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "sister",
+      "display": "Sister",
+      "gloss": "SISTER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "sit",
+      "display": "Sit",
+      "gloss": "SIT",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "sorry",
+      "display": "Sorry",
+      "gloss": "SORRY",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "stand",
+      "display": "Stand",
+      "gloss": "STAND",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "stop",
+      "display": "Stop",
+      "gloss": "STOP",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "student",
+      "display": "Student",
+      "gloss": "STUDENT",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "tea",
+      "display": "Tea",
+      "gloss": "TEA",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "teacher",
+      "display": "Teacher",
+      "gloss": "TEACHER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "thank_you",
+      "display": "Thank You",
+      "gloss": "THANK YOU",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "today",
+      "display": "Today",
+      "gloss": "TODAY",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "water",
+      "display": "Water",
+      "gloss": "WATER",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "what",
+      "display": "What",
+      "gloss": "WHAT",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "when",
+      "display": "When",
+      "gloss": "WHEN",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "where",
+      "display": "Where",
+      "gloss": "WHERE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "write",
+      "display": "Write",
+      "gloss": "WRITE",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "yes",
+      "display": "Yes",
+      "gloss": "YES",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "you",
+      "display": "You",
+      "gloss": "YOU",
+      "supported": true,
+      "has_video": true,
+      "category": "ISL_40Words_Video_Dataset"
+    }
+  ]
+}
