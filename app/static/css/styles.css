@@ -842,42 +842,61 @@ canvas {
   background: var(--surface-panel-hover);
 }
 
-/* Vocabulary Grid */
+/* Vocabulary Grid & Interactive Video Dictionary */
 .vocabulary-panel {
-  max-height: 180px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 320px;
+  max-height: 480px;
 }
 
 .vocabulary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
   overflow-y: auto;
-  max-height: 120px;
-  padding-right: 4px;
+  max-height: 400px;
+  padding: 6px;
+  scroll-behavior: smooth;
 }
 
 .vocab-card {
   background: var(--surface-panel-hover);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 6px 8px;
-  text-align: center;
-  font-size: 11px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.vocab-card:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
 }
 
 .vocab-card strong {
   display: block;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-main);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.vocab-card span {
-  font-size: 10px;
-  color: var(--accent-emerald);
-  font-weight: 600;
+.vocab-card span.vocab-tag {
+  font-size: 11px;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .hidden {
@@ -1169,21 +1188,26 @@ canvas {
 
 .correction-input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 16px;
   background: var(--surface-panel-hover);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--accent-cyan);
   border-radius: 10px;
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   outline: none;
   margin-top: 6px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  pointer-events: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  position: relative;
+  z-index: 100;
 }
 
 .correction-input:focus {
   border-color: #06b6d4;
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
 }
 
 /* 3-Repetition Retraining Status Box Styles */
@@ -1224,9 +1248,99 @@ canvas {
   animation: recPulse 1s infinite alternate;
 }
 
-@keyframes recPulse {
-  from { opacity: 0.4; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1.15); }
+.studio-modal-card {
+  max-width: 680px !important;
+  width: 92vw !important;
+}
+
+.studio-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.retrain-camera-wrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #090d16;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid var(--accent-cyan);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.retrain-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.retrain-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.retrain-video-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 700;
+  z-index: 10;
+}
+
+.retrain-recording-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 99px;
+  background: rgba(239, 68, 68, 0.95);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.6);
+  z-index: 10;
+}
+
+.rec-dot-animated {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: recPulse 0.8s infinite alternate;
+}
+
+.studio-footer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stop-state {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4) !important;
 }
 
 .rep-badges {
@@ -1476,6 +1590,22 @@ canvas {
 .action-sm-btn.highlight-btn:hover {
   background: rgba(6, 182, 212, 0.22);
   border-color: #06b6d4;
+}
+
+.primary-practice-btn {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #10b981 !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+.primary-practice-btn:hover {
+  background: rgba(16, 185, 129, 0.35) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
 }
 
 /* Practice Target Display & Reference Clip Button Styles */

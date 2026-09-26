@@ -322,6 +322,30 @@
       "supported": true,
       "has_video": true,
       "category": "ISL_40Words_Video_Dataset"
+    },
+    {
+      "id": "namaste",
+      "display": "Namaste",
+      "gloss": "NAMASTE",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "how_are_you",
+      "display": "How Are You",
+      "gloss": "HOW ARE YOU",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "i_am_fine",
+      "display": "I Am Fine",
+      "gloss": "I AM FINE",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
     }
   ]
 }

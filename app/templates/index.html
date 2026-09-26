@@ -94,7 +94,7 @@
 
             <!-- Google Meet Control Bar (Bottom Floating Dock) -->
             <div class="meet-controls-dock">
-              <button id="cameraButton" class="meet-btn primary-meet-btn" title="Toggle Camera">
+              <button id="cameraButton" class="meet-btn primary-meet-btn" onclick="toggleCamera()" title="Toggle Camera">
                 <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                 <span id="cameraBtnText">Start Camera</span>
               </button>
@@ -114,7 +114,7 @@
                 <span>Repeat Sign</span>
               </button>
 
-              <button id="correctSignBtn" class="meet-btn correction-btn" title="Report Wrong Sign & Train Model">
+              <button id="correctSignBtn" class="meet-btn correction-btn" onclick="openCorrectionModal()" title="Report Wrong Sign & Train Model">
                 <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 <span>Wrong Sign? Correct it</span>
               </button>
@@ -135,22 +135,17 @@
               <h3>Sentence Generation</h3>
               <span class="badge-pill" id="sentenceModeBadge">Ready</span>
             </div>
-            <p class="sentence-desc">Tap <strong>Start Recording</strong>, perform your sign language sequence, then tap <strong>Stop & Translate</strong> to generate full English sentences.</p>
+            <p class="sentence-desc">Tap <strong>Start Recording Sentence</strong>, perform your signs, then tap <strong>Pause & Translate Sentence</strong> to load, analyze, and speak out full English sentences.</p>
             
             <div class="sentence-recording-actions">
-              <button id="startSentenceBtn" class="meet-btn primary-meet-btn w-full">
+              <button id="startSentenceBtn" class="meet-btn primary-meet-btn w-full" onclick="startSentenceRecording()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
                 <span id="startSentenceBtnText">Start Recording Sentence</span>
               </button>
-              <button id="stopSentenceBtn" class="meet-btn stop-state w-full hidden">
+              <button id="stopSentenceBtn" class="meet-btn stop-state w-full hidden" onclick="stopSentenceRecording()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>
-                <span>Stop & Translate Sentence</span>
+                <span id="stopSentenceBtnText">Pause & Translate Sentence</span>
               </button>
-            </div>
-
-            <!-- Captured Sign Gloss Chips -->
-            <div class="sentence-chips-container" id="sentenceChips">
-              <span class="chips-placeholder">No signs recorded yet in this sentence.</span>
             </div>
 
             <!-- Translated Output Display Box -->
@@ -179,27 +174,16 @@
             </div>
           </div>
 
-          <!-- Practice Target Mode Card with Interactive Target Selection & AI Scoring -->
+          <!-- Practice Section (Live AI Accuracy Testing) -->
           <div class="panel practice-panel">
             <div class="panel-header">
-              <h3>Practice Target & AI Scoring</h3>
-              <button id="openPracticeSelectorBtn" class="action-sm-btn highlight-btn" title="Choose Target Sign or Conversation Sentence">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                <span>Select Target 🎯</span>
+              <h3>Practice Section</h3>
+              <button id="startPracticeBtn" class="action-sm-btn primary-practice-btn" onclick="startPracticeSession()" title="Start Live Camera Practice & AI Accuracy Test">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Practice</span>
               </button>
             </div>
             <div class="practice-content">
-              <div class="target-display-row">
-                <div class="target-title-wrap">
-                  <span class="target-type-badge" id="practiceTargetType">SINGLE WORD</span>
-                  <div class="practice-target-word" id="practiceTarget">HELLO</div>
-                </div>
-                <button id="watchReferenceClipBtn" class="action-sm-btn watch-clip-btn" title="Watch Official ISL Training Video Clip for this Sign">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  <span>Watch Video Clip</span>
-                </button>
-              </div>
-              
               <!-- AI Accuracy Score Meter -->
               <div class="accuracy-score-container" id="accuracyContainer">
                 <div class="accuracy-pill-badge" id="accuracyPill">
@@ -211,15 +195,21 @@
                 </div>
               </div>
 
-              <p class="practice-feedback" id="practiceFeedback">Prepare your hands in the camera view to practice this sign.</p>
+              <p class="practice-feedback" id="practiceFeedback">Click "Practice" to start camera and test your signing accuracy live.</p>
             </div>
           </div>
 
-          <!-- Supported Vocabulary Grid -->
+          <!-- Supported Vocabulary Grid & Interactive Video Dictionary -->
           <div class="panel vocabulary-panel">
             <div class="panel-header">
-              <h3>Vocabulary (40 Glosses)</h3>
-              <span id="vocabStatus" class="badge-pill">40 Trained</span>
+              <h3>Vocabulary & Video Dictionary</h3>
+              <div class="panel-btn-group">
+                <button id="openTutorGridBtn" class="action-sm-btn highlight-btn" onclick="openPracticeSelectorModal()" title="Open Full ISL Video Dictionary & Sentence List">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span>Video Dictionary</span>
+                </button>
+                <span id="vocabStatus" class="badge-pill">40 Trained</span>
+              </div>
             </div>
             <div id="vocabularyList" class="vocabulary-grid"></div>
           </div>
@@ -227,13 +217,13 @@
       </main>
     </div>
 
-    <!-- Interactive ISL Practice Target & Sentence Selector Modal -->
+    <!-- Interactive ISL Practice Dictionary Modal -->
     <div class="tutor-modal-overlay hidden" id="practiceSelectModal">
       <div class="tutor-modal-card selector-card">
         <div class="tutor-header">
           <div class="tutor-title-group">
-            <span class="tutor-badge">ISL PRACTICE TARGET & AI DICTIONARY</span>
-            <h2>Select Target Sign or Sentence</h2>
+            <span class="tutor-badge">ISL PRACTICE & AI DICTIONARY</span>
+            <h2>Supported Vocabulary & Sentences</h2>
           </div>
           <button id="closePracticeSelectBtn" class="close-modal-btn">&times;</button>
         </div>
@@ -251,13 +241,13 @@
 
           <!-- Sentences Tab View -->
           <div id="practiceSentencesView" class="selector-view-content">
-            <p class="selector-intro">Choose a basic necessity or conversational ISL sentence to practice continuous sign translation:</p>
+            <p class="selector-intro">Basic necessity and conversational ISL sentences supported by the model:</p>
             <div class="selector-list" id="sentencesCategoryList"></div>
           </div>
 
           <!-- Single Words Tab View -->
           <div id="practiceWordsView" class="selector-view-content hidden">
-            <p class="selector-intro">Select any of the 40 authentic trained ISL glosses to practice individual sign recognition & AI accuracy:</p>
+            <p class="selector-intro">Authentic trained ISL glosses supported for sign recognition:</p>
             <div class="selector-list" id="wordsCategoryList"></div>
           </div>
         </div>
@@ -315,42 +305,62 @@
           </button>
         </div>
       </div>
-    <!-- Interactive Sign Correction & Live 4-Second Video Retraining Modal -->
+    </div>
+
+    <!-- Interactive AI Retraining & Teaching Studio Window -->
     <div class="tutor-modal-overlay hidden" id="correctionModal">
-      <div class="tutor-modal-card correction-card">
+      <div class="tutor-modal-card correction-card studio-modal-card">
         <div class="tutor-header">
           <div class="tutor-title-group">
-            <span class="tutor-badge correction-badge">LIVE VIDEO MODEL RETRAINING</span>
-            <h2>Record Video & Train Model</h2>
+            <span class="tutor-badge correction-badge">AI TEACHING & RETRAINING STUDIO</span>
+            <h2>Train AI Model / Teach New Sign</h2>
           </div>
-          <button id="closeCorrectionBtn" class="close-modal-btn">&times;</button>
+          <button id="closeCorrectionBtn" class="close-modal-btn" onclick="hideCorrectionModal()">&times;</button>
         </div>
 
-        <div class="tutor-body">
-          <p class="correction-desc">Model predicted: <strong id="correctionModelThought">UNKNOWN</strong>. Select or type the sign you performed, then click <strong>Record 4-Second Video Clip</strong>. Perform your sign for 4 seconds so the AI extracts your video landmarks to train the model for current and future sessions:</p>
+        <div class="tutor-body studio-body">
+          <p class="correction-desc">Type the sign word or sentence below, watch your live camera feed, then use <strong>Start Recording</strong> and <strong>Stop & Train AI</strong> to save your sign permanently for future recognition:</p>
 
           <div class="correction-select-group">
-            <label for="correctGlossSelect">Target Sign (Select or Type Custom Name):</label>
-            <select id="correctGlossSelect" class="correction-dropdown"></select>
-            <input type="text" id="customGlossInput" class="correction-input" placeholder="Or type custom sign name (e.g. NAMASTE)...">
+            <label for="customGlossInput">Word or Sentence to Teach / Correct:</label>
+            <input type="text" id="customGlossInput" class="correction-input" placeholder="Type sign name or sentence (e.g. WATER, HI HOW ARE YOU, NAMASTE)..." autocomplete="off">
+            <div style="margin-top: 6px;">
+              <select id="correctGlossSelect" class="correction-dropdown"></select>
+            </div>
           </div>
 
-          <!-- Video Clip Recording Progress & Countdown Box -->
-          <div class="rep-recording-status hidden" id="repStatusBox">
-            <div class="video-countdown-badge">
-              <span class="video-rec-dot"></span>
-              <span id="videoRecTimerText">RECORDING VIDEO: 4.0s</span>
+          <!-- Live Camera Preview Box Inside Retraining Modal -->
+          <div class="retrain-camera-wrapper">
+            <video id="retrainVideo" playsinline muted autoplay class="retrain-video-feed"></video>
+            <canvas id="retrainOverlay" class="retrain-canvas-overlay"></canvas>
+            
+            <div class="retrain-video-badge" id="retrainBadge">
+              <span class="pulse-dot green" id="retrainDot"></span>
+              <span id="retrainStatusText">Live Camera View • Position Hands to Sign</span>
             </div>
-            <p class="rep-instruction" id="repInstructionText">Perform your sign in camera view now!</p>
-            <div class="rep-progress-bar">
-              <div class="rep-progress-fill" id="repProgressFill"></div>
+
+            <!-- Recording Overlay Timer Badge -->
+            <div class="retrain-recording-overlay hidden" id="retrainRecOverlay">
+              <div class="rec-dot-animated"></div>
+              <span id="retrainRecTimerText">RECORDING GESTURE: 0.0s</span>
             </div>
+          </div>
+
+          <!-- Video Clip Recording Progress Bar -->
+          <div class="rep-progress-bar hidden" id="retrainProgressBar">
+            <div class="rep-progress-fill" id="repProgressFill"></div>
           </div>
         </div>
 
-        <div class="tutor-footer">
-          <button id="submitCorrectionBtn" class="meet-btn primary-meet-btn w-full">
-            <span id="submitCorrectionBtnText">Record 4-Second Video Clip & Train AI &rarr;</span>
+        <div class="tutor-footer studio-footer">
+          <button id="startRetrainRecBtn" class="meet-btn primary-meet-btn w-full" onclick="startRetrainRecording()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+            <span id="startRetrainRecBtnText">Start Recording</span>
+          </button>
+
+          <button id="stopRetrainRecBtn" class="meet-btn stop-state w-full hidden" onclick="stopRetrainRecordingAndTrain()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>
+            <span id="stopRetrainRecBtnText">Stop & Train AI</span>
           </button>
         </div>
       </div>

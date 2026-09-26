@@ -182,6 +182,28 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
             # Trigger automated scikit-learn model retraining
             retrain_res = retrain_model_with_user_corrections(corr_file)
 
+            # Automatically update vocabulary.json with newly trained sign/sentence
+            vocab_file = CONFIGS / "vocabulary.json"
+            if vocab_file.exists():
+                try:
+                    v_data = json.loads(vocab_file.read_text(encoding="utf-8"))
+                    v_items = v_data.get("items", [])
+                    existing_glosses = {str(item.get("gloss")).upper() for item in v_items}
+                    g_upper = str(payload.get("correct_gloss")).upper().strip()
+                    if g_upper and g_upper not in existing_glosses:
+                        v_items.append({
+                            "id": g_upper.lower().replace(" ", "_"),
+                            "display": g_upper.replace("_", " ").title(),
+                            "gloss": g_upper,
+                            "supported": True,
+                            "has_video": False,
+                            "category": "User_Trained_ISL"
+                        })
+                        v_data["items"] = v_items
+                        vocab_file.write_text(json.dumps(v_data, indent=2), encoding="utf-8")
+                except Exception as exc:
+                    print("Vocabulary sync error:", exc)
+
             self._send_json({
                 "ok": True,
                 "message": f"Model successfully retrained on 3 exemplars for sign {payload.get('correct_gloss')}",
@@ -226,7 +248,11 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if self.command != "HEAD":
+            try:
+                self.wfile.write(body)
+            except BrokenPipeError:
+                pass
 
     def _send_file(self, path: Path, content_type: str) -> None:
         resolved = path.resolve()
@@ -242,7 +268,11 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if self.command != "HEAD":
+            try:
+                self.wfile.write(body)
+            except BrokenPipeError:
+                pass
 
     @staticmethod
     def _content_type(path: Path) -> str:
