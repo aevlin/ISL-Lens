@@ -170,9 +170,13 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
 
             exemplars = payload.get("exemplars") or ([payload.get("features")] if payload.get("features") else [])
 
+            clean_gloss = str(payload.get("correct_gloss") or "").replace("_", " ").strip().upper()
+            if not clean_gloss:
+                clean_gloss = "CUSTOM SIGN"
+
             entry = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
-                "correct_gloss": payload.get("correct_gloss"),
+                "correct_gloss": clean_gloss,
                 "model_predicted": payload.get("model_predicted"),
                 "exemplars": exemplars,
             }
@@ -188,13 +192,12 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
                 try:
                     v_data = json.loads(vocab_file.read_text(encoding="utf-8"))
                     v_items = v_data.get("items", [])
-                    existing_glosses = {str(item.get("gloss")).upper() for item in v_items}
-                    g_upper = str(payload.get("correct_gloss")).upper().strip()
-                    if g_upper and g_upper not in existing_glosses:
+                    existing_glosses = {str(item.get("gloss")).upper().replace("_", " ") for item in v_items}
+                    if clean_gloss and clean_gloss not in existing_glosses:
                         v_items.append({
-                            "id": g_upper.lower().replace(" ", "_"),
-                            "display": g_upper.replace("_", " ").title(),
-                            "gloss": g_upper,
+                            "id": clean_gloss.lower().replace(" ", "_"),
+                            "display": clean_gloss.title(),
+                            "gloss": clean_gloss,
                             "supported": True,
                             "has_video": False,
                             "category": "User_Trained_ISL"

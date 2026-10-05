@@ -346,6 +346,30 @@
       "supported": true,
       "has_video": false,
       "category": "User_Trained_ISL"
+    },
+    {
+      "id": "nice_to_meet_you",
+      "display": "Nice To Meet You",
+      "gloss": "NICE_TO_MEET_YOU",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "all_the_best",
+      "display": "All The Best",
+      "gloss": "ALL_THE_BEST",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "how_are_you?",
+      "display": "How Are You?",
+      "gloss": "HOW_ARE_YOU?",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
     }
   ]
 }

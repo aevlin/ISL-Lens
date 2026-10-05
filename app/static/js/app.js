@@ -3045,7 +3045,7 @@ function escapeHtml(value) {
 /* Model Feedback & Interactive Retraining Studio Functions */
 function openCorrectionModal() {
   const currentThought = state.lastPredictedSign && state.lastConfidence >= (state.model?.unknown_threshold || 0.25)
-    ? state.lastPredictedSign
+    ? state.lastPredictedSign.replace(/_/g, " ")
     : "NOT SURE";
   if (els.correctionModelThought) {
     els.correctionModelThought.textContent = currentThought;
@@ -3053,12 +3053,22 @@ function openCorrectionModal() {
 
   if (els.correctGlossSelect) {
     els.correctGlossSelect.innerHTML = "";
+    // Default option: "no input" so user can type or choose cleanly
+    const defaultOpt = document.createElement("option");
+    defaultOpt.value = "";
+    defaultOpt.textContent = "no input -- Type custom word/sentence or select sign";
+    defaultOpt.selected = true;
+    els.correctGlossSelect.appendChild(defaultOpt);
+
     const list = state.modelLoaded && state.model.classes ? state.model.classes : state.vocabulary.map((v) => v.gloss);
+    const seen = new Set();
     list.forEach((gloss) => {
+      const cleanGloss = String(gloss).toUpperCase().replace(/_/g, " ").trim();
+      if (!cleanGloss || seen.has(cleanGloss)) return;
+      seen.add(cleanGloss);
       const opt = document.createElement("option");
-      opt.value = gloss;
-      opt.textContent = gloss;
-      if (gloss === currentThought) opt.selected = true;
+      opt.value = cleanGloss;
+      opt.textContent = cleanGloss;
       els.correctGlossSelect.appendChild(opt);
     });
   }
@@ -3107,15 +3117,14 @@ function hideCorrectionModal() {
 }
 
 function startRetrainRecording() {
-  let selectedGloss = "";
-  if (els.customGlossInput && els.customGlossInput.value.trim()) {
-    selectedGloss = els.customGlossInput.value.trim().toUpperCase().replace(/\s+/g, "_");
-  } else if (els.correctGlossSelect) {
-    selectedGloss = els.correctGlossSelect.value;
-  }
+  const customVal = els.customGlossInput ? els.customGlossInput.value.trim() : "";
+  const selectVal = els.correctGlossSelect ? els.correctGlossSelect.value : "";
+  const rawInput = customVal || selectVal;
+
+  let selectedGloss = rawInput.replace(/_/g, " ").replace(/\s+/g, " ").trim().toUpperCase();
 
   if (!selectedGloss) {
-    alert("Please type the sign word or sentence you are going to teach (e.g. WATER, HI HOW ARE YOU)...");
+    alert("Please type an accurate word or sentence to teach (e.g. WATER, I AM FINE, HOW ARE YOU)...");
     if (els.customGlossInput) els.customGlossInput.focus();
     return;
   }
@@ -3148,7 +3157,7 @@ function startRetrainRecording() {
     const pct = Math.min(100, (elapsed / (maxSec * 1000)) * 100);
 
     if (els.retrainRecTimerText) {
-      els.retrainRecTimerText.textContent = `RECORDING GESTURE: ${secStr}s`;
+      els.retrainRecTimerText.textContent = `RECORDING GESTURE: ${secStr}s (${state.retrainFrameBuffer.length} frames checked)`;
     }
     if (els.repProgressFill) {
       els.repProgressFill.style.width = `${pct}%`;
@@ -3164,31 +3173,37 @@ async function stopRetrainRecordingAndTrain() {
   if (state.retrainRecTimerInterval) clearInterval(state.retrainRecTimerInterval);
   state.isRetrainRecording = false;
 
-  let selectedGloss = "";
-  if (els.customGlossInput && els.customGlossInput.value.trim()) {
-    selectedGloss = els.customGlossInput.value.trim().toUpperCase().replace(/\s+/g, "_");
-  } else if (els.correctGlossSelect) {
-    selectedGloss = els.correctGlossSelect.value;
-  }
+  const customVal = els.customGlossInput ? els.customGlossInput.value.trim() : "";
+  const selectVal = els.correctGlossSelect ? els.correctGlossSelect.value : "";
+  const rawInput = customVal || selectVal;
+
+  let selectedGloss = rawInput.replace(/_/g, " ").replace(/\s+/g, " ").trim().toUpperCase();
 
   if (!selectedGloss) {
-    selectedGloss = "CUSTOM_SIGN";
+    selectedGloss = "CUSTOM SIGN";
   }
 
-  if (els.retrainStatusText) els.retrainStatusText.textContent = `Training AI model for "${selectedGloss}"...`;
+  if (els.retrainStatusText) els.retrainStatusText.textContent = `Evaluating all ${state.retrainFrameBuffer.length} frames & training AI model for "${selectedGloss}"...`;
 
-  let vector = null;
+  // Evaluate EVERY SINGLE FRAME in the recorded video buffer directly (no frames discarded)
+  const capturedExemplars = [];
   if (state.retrainFrameBuffer.length >= 6) {
-    const sampled = sample32Frames(state.retrainFrameBuffer);
-    vector = Array.from(summarizeSequence(sampled));
-  } else if (state.obsBuffer.length >= 6) {
-    const sampled = sample32Frames(state.obsBuffer);
-    vector = Array.from(summarizeSequence(sampled));
-  } else if (state.lastObservationSummary) {
-    vector = state.lastObservationSummary;
-  }
+    // 1. Full sequence summary across EVERY single frame in order
+    const fullSequenceSummary = Array.from(summarizeSequence(state.retrainFrameBuffer));
+    capturedExemplars.push(fullSequenceSummary);
 
-  const capturedExemplars = vector ? [vector] : [];
+    // 2. Multi-phase sub-sequence summaries across 100% of recorded frames
+    const n = state.retrainFrameBuffer.length;
+    const half = Math.floor(n / 2);
+    if (half >= 4) {
+      capturedExemplars.push(Array.from(summarizeSequence(state.retrainFrameBuffer.slice(0, half))));
+      capturedExemplars.push(Array.from(summarizeSequence(state.retrainFrameBuffer.slice(n - half))));
+    }
+  } else if (state.obsBuffer.length >= 6) {
+    capturedExemplars.push(Array.from(summarizeSequence(state.obsBuffer)));
+  } else if (state.lastObservationSummary) {
+    capturedExemplars.push(state.lastObservationSummary);
+  }
 
   try {
     const res = await fetch("/api/correct_sign", {
