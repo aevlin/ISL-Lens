@@ -1,7 +1,7 @@
 {
-  "version": "v0.6.0-restored-92pc-40words",
-  "status": "restored_92pc_accuracy",
-  "description": "40 Authentic Indian Sign Language (ISL) Glosses with 92.06% Accurate Real Video Model",
+  "version": "v1.2.0-holdout-validated",
+  "status": "48_trained_labels_93_8_percent_held_out_top1",
+  "description": "100 project ISL glosses plus user-taught signs. The active model currently has 48 trained labels and scored 93.8% top-1 on 129 held-out corpus clips; this is not a live-camera accuracy guarantee.",
   "items": [
     {
       "id": "brother",
@@ -328,45 +328,509 @@
       "display": "Namaste",
       "gloss": "NAMASTE",
       "supported": true,
-      "has_video": false,
-      "category": "User_Trained_ISL"
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
     },
     {
       "id": "how_are_you",
       "display": "How Are You",
       "gloss": "HOW ARE YOU",
       "supported": true,
-      "has_video": false,
-      "category": "User_Trained_ISL"
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
     },
     {
       "id": "i_am_fine",
       "display": "I Am Fine",
       "gloss": "I AM FINE",
       "supported": true,
-      "has_video": false,
-      "category": "User_Trained_ISL"
-    },
-    {
-      "id": "nice_to_meet_you",
-      "display": "Nice To Meet You",
-      "gloss": "NICE_TO_MEET_YOU",
-      "supported": true,
-      "has_video": false,
-      "category": "User_Trained_ISL"
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
     },
     {
       "id": "all_the_best",
       "display": "All The Best",
-      "gloss": "ALL_THE_BEST",
+      "gloss": "ALL THE BEST",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "nice_to_meet_you",
+      "display": "Nice To Meet You",
+      "gloss": "NICE TO MEET YOU",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "good_morning",
+      "display": "Good Morning",
+      "gloss": "GOOD MORNING",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "good_night",
+      "display": "Good Night",
+      "gloss": "GOOD NIGHT",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "good_evening",
+      "display": "Good Evening",
+      "gloss": "GOOD EVENING",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "see_you_later",
+      "display": "See You Later",
+      "gloss": "SEE YOU LATER",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "welcome",
+      "display": "Welcome",
+      "gloss": "WELCOME",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "family",
+      "display": "Family",
+      "gloss": "FAMILY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "man",
+      "display": "Man",
+      "gloss": "MAN",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "woman",
+      "display": "Woman",
+      "gloss": "WOMAN",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "child",
+      "display": "Child",
+      "gloss": "CHILD",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "boy",
+      "display": "Boy",
+      "gloss": "BOY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "girl",
+      "display": "Girl",
+      "gloss": "GIRL",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "time",
+      "display": "Time",
+      "gloss": "TIME",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "money",
+      "display": "Money",
+      "gloss": "MONEY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "work",
+      "display": "Work",
+      "gloss": "WORK",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "book",
+      "display": "Book",
+      "gloss": "BOOK",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "computer",
+      "display": "Computer",
+      "gloss": "COMPUTER",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "phone",
+      "display": "Phone",
+      "gloss": "PHONE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "bus",
+      "display": "Bus",
+      "gloss": "BUS",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "train",
+      "display": "Train",
+      "gloss": "TRAIN",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "car",
+      "display": "Car",
+      "gloss": "CAR",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "airplane",
+      "display": "Airplane",
+      "gloss": "AIRPLANE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "city",
+      "display": "City",
+      "gloss": "CITY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "country",
+      "display": "Country",
+      "gloss": "COUNTRY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "milk",
+      "display": "Milk",
+      "gloss": "MILK",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "rice",
+      "display": "Rice",
+      "gloss": "RICE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "bread",
+      "display": "Bread",
+      "gloss": "BREAD",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "apple",
+      "display": "Apple",
+      "gloss": "APPLE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "banana",
+      "display": "Banana",
+      "gloss": "BANANA",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "day",
+      "display": "Day",
+      "gloss": "DAY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "night",
+      "display": "Night",
+      "gloss": "NIGHT",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "year",
+      "display": "Year",
+      "gloss": "YEAR",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "month",
+      "display": "Month",
+      "gloss": "MONTH",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "week",
+      "display": "Week",
+      "gloss": "WEEK",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "hour",
+      "display": "Hour",
+      "gloss": "HOUR",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "minute",
+      "display": "Minute",
+      "gloss": "MINUTE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "second",
+      "display": "Second",
+      "gloss": "SECOND",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "sun",
+      "display": "Sun",
+      "gloss": "SUN",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "moon",
+      "display": "Moon",
+      "gloss": "MOON",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "star",
+      "display": "Star",
+      "gloss": "STAR",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "rain",
+      "display": "Rain",
+      "gloss": "RAIN",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "hot",
+      "display": "Hot",
+      "gloss": "HOT",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "cold",
+      "display": "Cold",
+      "gloss": "COLD",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "big",
+      "display": "Big",
+      "gloss": "BIG",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "small",
+      "display": "Small",
+      "gloss": "SMALL",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "fast",
+      "display": "Fast",
+      "gloss": "FAST",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "slow",
+      "display": "Slow",
+      "gloss": "SLOW",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "new",
+      "display": "New",
+      "gloss": "NEW",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "old",
+      "display": "Old",
+      "gloss": "OLD",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "happy",
+      "display": "Happy",
+      "gloss": "HAPPY",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "sad",
+      "display": "Sad",
+      "gloss": "SAD",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "love",
+      "display": "Love",
+      "gloss": "LOVE",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "danger",
+      "display": "Danger",
+      "gloss": "DANGER",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "beautiful",
+      "display": "Beautiful",
+      "gloss": "BEAUTIFUL",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "strong",
+      "display": "Strong",
+      "gloss": "STRONG",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "weak",
+      "display": "Weak",
+      "gloss": "WEAK",
+      "supported": true,
+      "has_video": true,
+      "category": "Authentic_ISL_Vocabulary"
+    },
+    {
+      "id": "claps",
+      "display": "Claps",
+      "gloss": "CLAPS",
       "supported": true,
       "has_video": false,
       "category": "User_Trained_ISL"
     },
     {
-      "id": "how_are_you?",
-      "display": "How Are You?",
-      "gloss": "HOW_ARE_YOU?",
+      "id": "good_afternoon",
+      "display": "Good Afternoon",
+      "gloss": "GOOD AFTERNOON",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "what_is_your_name",
+      "display": "What Is Your Name",
+      "gloss": "WHAT IS YOUR NAME",
+      "supported": true,
+      "has_video": false,
+      "category": "User_Trained_ISL"
+    },
+    {
+      "id": "children",
+      "display": "Children",
+      "gloss": "CHILDREN",
       "supported": true,
       "has_video": false,
       "category": "User_Trained_ISL"

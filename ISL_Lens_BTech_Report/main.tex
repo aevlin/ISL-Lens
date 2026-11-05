@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{graphicx}
+\usepackage{sectsty}
+\chapterfont{\Large\centering\MakeUppercase}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+%\setlength{\parindent}{20cm}
+\usepackage{setspace}
+%\onehalfspacing
+\usepackage{array}  % for setting column width in tables
+%\usepackage{Times} or
+%\usepackage{mathptmx}  for Times New Roman
+\usepackage[top=3cm,bottom=2.5cm,left=3cm,right=2.5cm]{geometry}
+\lhead{}
+\lfoot{\textit{Department of Computer Science and Engineering, AJCE}}
+\cfoot{}
+\rfoot{\textit{\thepage}}
+\rhead{\nouppercase{\textit{\leftmark\ }}}
+\usepackage{pdfpages}
+\usepackage{url}
+\usepackage{longtable}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+\input{./title.tex}	
+\doublespacing	
+\thispagestyle{empty} 
+\pagenumbering{roman}
+\input{./Declaration.tex}
+\input{./certificate.tex}
+\input{./Ackn.tex}
+\input{./Abstract.tex}
+\begin{spacing}{1.35}
+\tableofcontents
+\end{spacing}
+\listoftables
+\listoffigures  
+\input{./Abbrevations.tex}  
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\input{./intro.tex}
+\input{./Bibilo.tex}
+\input{./Appendix.tex}
+\clearpage
+\includepdf[pages=1]{./po_peo_vision_mission.pdf}
+\end{document}
