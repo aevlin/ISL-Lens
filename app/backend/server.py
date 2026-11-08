@@ -422,7 +422,7 @@ class ISLLensHandler(SimpleHTTPRequestHandler):
 
     def _send_file(self, path: Path, content_type: str, extra_headers: dict = None) -> None:
         resolved = path.resolve()
-        allowed_roots = [TEMPLATES.resolve(), STATIC.resolve(), CONFIGS.resolve(), (ROOT / "data").resolve()]
+        allowed_roots = [ROOT.resolve(), TEMPLATES.resolve(), STATIC.resolve(), CONFIGS.resolve(), (ROOT / "data").resolve()]
         if not any(resolved == root or root in resolved.parents for root in allowed_roots):
             self.send_error(403, "Forbidden")
             return

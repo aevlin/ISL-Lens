@@ -1,0 +1,10 @@
+.DS_Store
+.git
+__pycache__
+*.pyc
+Deliverables
+Final Project Presentation
+ISL_Lens_BTech_Report
+Project Presentation.md
+reports
+

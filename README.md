@@ -20,3 +20,24 @@ Open in browser:
 ```text
 http://127.0.0.1:8000
 ```
+
+## Deploy to Vercel
+
+The project is fully configured for seamless one-click deployment on [Vercel](https://vercel.com).
+
+### Option 1: Via Vercel Dashboard (Recommended)
+1. Push this repository to GitHub / GitLab / Bitbucket.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+3. Leave all Build & Development settings at their defaults (Vercel automatically detects `vercel.json` and Python Serverless Functions in `api/`).
+4. Click **Deploy**.
+
+### Option 2: Via Vercel CLI
+Run the following in the project root:
+```bash
+npx vercel
+```
+For production release:
+```bash
+npx vercel --prod
+```
+
