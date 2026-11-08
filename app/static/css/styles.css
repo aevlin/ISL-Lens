@@ -953,7 +953,21 @@ canvas {
   display: none !important;
 }
 
-/* Responsive Styles */
+/* Touch ergonomics */
+button,
+a,
+input,
+select {
+  touch-action: manipulation;
+}
+
+.mobile-flip-btn {
+  display: none !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
 @media (max-width: 1024px) {
   .meet-grid {
     grid-template-columns: 1fr;
@@ -961,7 +975,7 @@ canvas {
   }
 
   .camera-stage {
-    min-height: 420px;
+    min-height: 380px;
   }
 
   .side-workspace {
@@ -970,26 +984,327 @@ canvas {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
+  body {
+    height: auto;
+    min-height: 100dvh;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .app-container {
-    padding: 8px;
+    height: auto;
+    min-height: 100dvh;
+    min-height: 100vh;
+    padding: 8px 10px calc(14px + env(safe-area-inset-bottom, 0px)) 10px;
+    gap: 10px;
   }
 
-  .meet-controls-dock {
-    flex-wrap: wrap;
-    justify-content: center;
-    border-radius: 20px;
-    padding: 8px 12px;
-    gap: 8px;
-    bottom: 12px;
+  .meet-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    gap: 12px;
   }
 
-  .meet-btn span {
-    display: none;
+  .camera-stage {
+    min-height: 290px;
+    height: 48vh;
+    max-height: 440px;
+    width: 100%;
+    position: relative;
+  }
+
+  .video-container {
+    border-radius: 16px;
+    height: 100%;
   }
 
   .side-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .mobile-flip-btn {
+    display: flex !important;
+  }
+
+  .panel {
+    border-radius: 14px;
+    padding: 14px;
+    max-height: none;
+  }
+
+  .sentence-desc {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .sentence-recording-actions button {
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    min-height: 48px;
+  }
+
+  .transcript-list {
+    max-height: 200px;
+  }
+
+  .vocabulary-grid {
+    max-height: 320px;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+    padding: 2px;
+  }
+
+  .vocab-card {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 8px 12px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-logo-wrapper {
+    height: 32px;
+  }
+
+  .brand-logo {
+    height: 30px;
+  }
+
+  .brand-title {
+    font-size: 18px;
+  }
+
+  .header-status {
+    display: none; /* Hide verbose 60-character model debug status on small screens */
+  }
+
+  .header-actions {
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .header-actions .meet-btn {
+    padding: 7px 11px;
+    font-size: 12px;
+    border-radius: 999px;
+    min-height: 36px;
+  }
+
+  .header-actions #themeToggle {
+    padding: 7px 9px;
+    min-height: 36px;
+  }
+
+  .header-actions #themeLabelText {
+    display: none;
+  }
+
+  .video-overlay-top {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .live-sign-badge {
+    padding: 4px 8px;
+    gap: 5px;
+    border-radius: 8px;
+  }
+
+  .live-sign-badge .sign-text {
+    font-size: 14px;
+  }
+
+  .live-sign-badge .badge-tag {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+
+  .live-sign-badge .confidence-val {
+    font-size: 11px;
+  }
+
+  .tracking-badge,
+  .body-region-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 8px;
+    gap: 4px;
+  }
+
+  .gesture-observation-bar {
+    width: 100%;
+    order: 5;
+    height: 6px;
+    margin-top: 2px;
+  }
+
+  .meet-controls-dock {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: calc(100% - 16px);
+    padding: 6px 8px;
+    gap: 6px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .meet-controls-dock .meet-btn {
+    padding: 8px;
+    min-width: 42px;
+    min-height: 42px;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .meet-controls-dock #cameraButton {
+    padding: 8px 12px;
+    border-radius: 999px;
+    min-width: auto;
+  }
+
+  /* Hide auxiliary text labels inside dock buttons on mobile to fit in 1 clean horizontal row */
+  .meet-controls-dock #speechButton span,
+  .meet-controls-dock #ttsButton span,
+  .meet-controls-dock #addUnknownButton span,
+  .meet-controls-dock #exportButton span,
+  .meet-controls-dock #switchCameraBtn span {
+    display: none !important;
+  }
+
+  .meet-controls-dock .btn-icon {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  .video-overlay-bottom {
+    bottom: 58px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .reason-caption {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    max-width: 95%;
+    line-height: 1.35;
+  }
+
+  /* Modals on Mobile */
+  .tutor-modal-overlay {
+    padding: 6px;
+    align-items: flex-end;
+  }
+
+  .tutor-modal-card {
+    width: 100%;
+    max-height: 94dvh;
+    border-radius: 18px 18px 12px 12px;
+    margin: 0;
+  }
+
+  .tutor-header {
+    padding: 12px 16px;
+  }
+
+  .tutor-title-group h2 {
+    font-size: 18px;
+  }
+
+  .tutor-body {
+    padding: 12px 14px;
+    gap: 12px;
+    max-height: calc(94dvh - 110px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tutor-info-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .practice-studio-card {
+    width: 100% !important;
+    max-height: 95dvh !important;
+    border-radius: 18px 18px 12px 12px !important;
+  }
+
+  .practice-studio-body {
+    padding: 10px 12px !important;
+    max-height: calc(95dvh - 120px) !important;
+    gap: 10px !important;
+  }
+
+  .practice-split-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .practice-split-box {
+    padding: 8px;
+  }
+
+  .practice-video-wrapper,
+  .practice-cam-wrapper {
+    aspect-ratio: 16 / 9;
+    max-height: 200px;
+  }
+
+  .studio-footer {
+    padding: 10px 14px !important;
+  }
+
+  .studio-footer button {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 10px;
+    min-height: 46px;
+  }
+
+  .correction-input,
+  .correction-dropdown {
+    font-size: 16px !important; /* Prevents unwanted iOS Safari page zoom */
+    padding: 10px 12px;
+  }
+
+  .retrain-camera-wrapper {
+    height: 180px;
+    aspect-ratio: 16 / 9;
   }
 }
 

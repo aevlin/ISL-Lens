@@ -2,6 +2,7 @@
 
 const state = {
   theme: localStorage.getItem("isl_theme") || "dark",
+  facingMode: "user",
   camera: null,
   hands: null,
   pose: null,
@@ -1219,6 +1220,7 @@ const els = {
   video: document.querySelector("#video"),
   overlay: document.querySelector("#overlay"),
   cameraButton: document.querySelector("#cameraButton"),
+  switchCameraBtn: document.querySelector("#switchCameraBtn"),
   cameraBtnText: document.querySelector("#cameraBtnText"),
   cameraBadge: document.querySelector("#cameraBadge"),
   trackingDot: document.querySelector("#trackingDot"),
@@ -1619,6 +1621,7 @@ function downloadTranscript() {
 function bindEvents() {
   if (els.themeToggle) els.themeToggle.addEventListener("click", toggleTheme);
   if (els.cameraButton) els.cameraButton.addEventListener("click", toggleCamera);
+  if (els.switchCameraBtn) els.switchCameraBtn.addEventListener("click", switchCamera);
   if (els.ttsButton) els.ttsButton.addEventListener("click", speakOutput);
   if (els.exportButton) els.exportButton.addEventListener("click", exportConversation);
   if (els.addUnknownButton) els.addUnknownButton.addEventListener("click", commitCurrentSign);
@@ -3253,12 +3256,15 @@ async function startCamera() {
           width: { ideal: 640, max: 640 },
           height: { ideal: 480, max: 480 },
           frameRate: { ideal: 24, max: 30 },
-          facingMode: "user",
+          facingMode: state.facingMode || "user",
         },
         audio: false,
       });
       state.stream = acquiredStream;
       els.video.srcObject = state.stream;
+      if (els.video) {
+        els.video.style.transform = state.facingMode === "environment" ? "none" : "scaleX(-1)";
+      }
       await els.video.play();
       if (els.retrainVideo) {
         els.retrainVideo.srcObject = state.stream;
@@ -3344,6 +3350,17 @@ function stopCamera() {
   els.handChip.textContent = "0 Hands";
   if (els.bodyRegionText) els.bodyRegionText.textContent = "NEUTRAL SPACE";
   updateRecognitionDisplay("UNKNOWN", 0, "STANDBY", "Camera is off.");
+}
+
+async function switchCamera() {
+  state.facingMode = state.facingMode === "environment" ? "user" : "environment";
+  if (els.video) {
+    els.video.style.transform = state.facingMode === "environment" ? "none" : "scaleX(-1)";
+  }
+  if (state.stream) {
+    stopCamera();
+    await startCamera();
+  }
 }
 
 async function startTrackingServices() {
